@@ -16,7 +16,6 @@ def run_evaluation_demo():
     Initializes the Green Agent and runs it on a set of problems,
     printing a report for each.
     """
-    print("🚀 Starting USACO Benchmark Evaluation Demo...")
     agent = GreenAgent(benchmark_path=BENCHMARK_ROOT, timeout_seconds=2)
     
     for i, (problem, solution_file) in enumerate(PROBLEMS_TO_TEST.items()):
