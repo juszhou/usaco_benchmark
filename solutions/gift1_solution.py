@@ -26,7 +26,7 @@ while line_idx < len(lines):
 
         for i in range(num_receivers):
             receiver = lines[line_idx + i]
-            accounts[receiver] += gift_per_person
+            accounts[receiver] -= gift_per_person # should be adding gift
 
     line_idx += num_receivers
 

@@ -1,4 +1,7 @@
 import sys
+import time
+
+time.sleep(3)
 
 N = int(sys.stdin.read().strip())
 start_year = 1900

@@ -20,7 +20,7 @@ def run_evaluation_demo():
     
     for i, (problem, solution_file) in enumerate(PROBLEMS_TO_TEST.items()):
         print("\n" + "="*50)
-        print(f"🎬 TASK {i+1}/{len(PROBLEMS_TO_TEST)}: Evaluating '{problem}'")
+        print(f"TASK {i+1}/{len(PROBLEMS_TO_TEST)}: Evaluating '{problem}'")
         print("="*50)
         
         solution_path = os.path.join(SOLUTIONS_DIR, solution_file)
