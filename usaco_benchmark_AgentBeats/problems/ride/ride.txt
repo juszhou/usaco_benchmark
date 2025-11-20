@@ -1,0 +1,19 @@
+USACO 1993-1994: Ride the Comet
+
+You are tracking the orbit of Comet Halley.  Each comet and each group of
+astronauts is assigned a name consisting solely of uppercase letters A–Z.  To
+decide whether a given group should launch to meet a given comet, compute for
+each name the product of its letters’ positions in the alphabet (A = 1, B = 2,
+…, Z = 26).  Reduce each product modulo 47.  If the two remainders match, the
+group should go meet the comet; otherwise they should stay home.
+
+Input
+-----
+Two lines: the comet name followed by the group name.  Each line is 1–6
+uppercase letters.
+
+Output
+------
+Print `GO` if the remainders match, otherwise print `STAY`, each followed by a
+newline.
+

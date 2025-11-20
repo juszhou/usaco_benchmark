@@ -1,0 +1,23 @@
+USACO 1994-1995: Greedy Gift Givers
+
+Around the holidays a group of friends exchange gifts.  Each participant starts
+with zero dollars.  When it is someone’s turn, that person specifies how much
+money to spend and how many friends will receive gifts.  The spender splits the
+money evenly (integer division) among the recipients; any leftover dollars stay
+with the spender.  Gifts can only be given to people inside the group.
+
+Input
+-----
+Line 1: integer `N` (2 ≤ N ≤ 10), the number of people.
+Lines 2..N+1: the names of the participants (unique strings without spaces).
+The remainder of the file repeats the following data for each gift-giving
+action in the same order as the participant list:
+* A line with the giver’s name.
+* A line with two integers `amount` and `num_receivers`.
+* `num_receivers` lines, each with the name of a recipient.
+
+Output
+------
+For every participant, in the original order, print a line `name balance`
+showing their net gain (which may be negative) after all gift exchanges.
+
