@@ -77,6 +77,8 @@ class GreenAgent:
                 expected_output = f_out.read().strip()
 
             result = self._run_single_test(solution_script_path, input_data)
+            result['expected'] = expected_output
+            result['input_preview'] = input_data[:300]
             
             if result['status'] == 'Completed':
                 actual_output = result['output'].strip()
@@ -103,7 +105,57 @@ class GreenAgent:
             },
             "details": case_results
         }
-        
+
+        total_cases = len(test_cases)
+        accuracy_pct = (overall_passed / total_cases) * 100 if total_cases else 0.0
+        avg_runtime_ms = final_report['summary']['avg_runtime_ms']
+        max_memory_mb = final_report['summary']['max_memory_mb']
+
+        timeout_ms = self.timeout * 1000
+        # runtime score: closer to 0 runtime is better; if avg_runtime >= timeout treat as 0
+        runtime_percent = max(0.0, min(100.0, (timeout_ms - avg_runtime_ms) / timeout_ms * 100.0))
+        # memory score: compare against a heuristic threshold (256 MB)
+        memory_threshold_mb = 256.0
+        memory_percent = max(0.0, min(100.0, (memory_threshold_mb - max_memory_mb) / memory_threshold_mb * 100.0))
+
+        # Weighted final score
+        final_percent = (accuracy_pct * 0.7) + (runtime_percent * 0.2) + (memory_percent * 0.1)
+
+        suggestions = []
+        if accuracy_pct < 100.0:
+            suggestions.append("Failing test cases indicate logic or edge-case errors. Check boundary conditions, off-by-one errors, and input parsing.")
+        if any(r.get('status') == 'Timeout' for r in case_results):
+            suggestions.append("One or more cases timed out — consider algorithmic improvements or faster I/O (e.g., use buffered reads).")
+        if any(r.get('status') == 'Runtime Error' for r in case_results):
+            suggestions.append("Runtime errors occurred. Inspect exception messages in case details and add defensive checks.")
+        if avg_runtime_ms >= 0.8 * timeout_ms:
+            suggestions.append("Average runtime is close to the timeout. Optimize inner loops or reduce overhead.")
+        if max_memory_mb >= 0.9 * memory_threshold_mb:
+            suggestions.append("High memory usage detected. Consider using streaming algorithms or smaller data structures.")
+        if not suggestions:
+            suggestions.append("No immediate issues detected. Consider adding more edge-case tests for confidence.")
+
+        # tips for debugging
+        for r in case_results:
+            expected = r.get('expected_output') if 'expected_output' in r else None
+            if expected is None and 'expected' in r:
+                expected = r['expected']
+            if expected is not None:
+                r['expected_preview'] = expected[:300]
+            if 'output' in r and isinstance(r['output'], str):
+                r['actual_preview'] = r['output'][:300]
+
+        final_report['analysis'] = {
+            'accuracy_pct': round(accuracy_pct, 2),
+            'runtime_ms_avg': round(avg_runtime_ms, 2),
+            'max_memory_mb': round(max_memory_mb, 2),
+            'runtime_percent': round(runtime_percent, 2),
+            'memory_percent': round(memory_percent, 2),
+            'final_score_percent': round(final_percent, 2),
+            'suggestions': suggestions,
+            'weights': {'correctness': 0.7, 'runtime': 0.2, 'memory': 0.1}
+        }
+
         return final_report
 
     def _find_test_cases(self, problem_dir: str) -> list:
