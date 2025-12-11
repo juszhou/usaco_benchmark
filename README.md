@@ -9,19 +9,31 @@ GreenAgent is optimized for AI input, providing metrics on **Runtime Efficiency*
 * **Safety Sandbox:** Enforces strict timeouts (default: 2s) to prevent infinite loops from hanging the system.
 * **Detailed Reporting:** Outputs comprehensive JSON reports for debugging and CSV summaries for data analysis.
 
-## Prerequisites
+## Prerequisites/Environment Setup
 
 * Python 3.8+
 * `psutil` (for memory monitoring)
 
-
 ```bash
 pip install psutil
 ```
+or you could run 
+`uv sync`
 
-## To run the green agent
+## Usage for Agent Beats
+Configure `.env` with `HUGGINGFACE_API_KEY=...`, then:
+
+## To run the green agent demo
 Change the code in the **solutions** folder
 and run the command:
 ```
 python3 run_demo.py
 ```
+or to launch a specific problem:
+
+```bash
+python main.py launch --problem ride
+python main.py launch --problem gift1
+python main.py launch --problem friday
+```
+
