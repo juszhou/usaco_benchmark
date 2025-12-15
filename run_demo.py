@@ -4,12 +4,12 @@ import time
 from model.greenagent import GreenAgent 
 
 BENCHMARK_ROOT = "."
-SOLUTIONS_DIR = "solutions"
-PROBLEMS_TO_TEST = {
-    "ride": "ride_solution.py",
-    "gift1": "gift1_solution.py",
-    "friday": "friday_solution.py",
-}
+#SOLUTIONS_DIR = "solutions"
+PROBLEMS_TO_TEST = [
+    "ride",
+    "gift1",
+    "friday"
+]
 
 def run_evaluation_demo():
     """
@@ -18,18 +18,15 @@ def run_evaluation_demo():
     """
     agent = GreenAgent(benchmark_path=BENCHMARK_ROOT, timeout_seconds=2)
     
-    for i, (problem, solution_file) in enumerate(PROBLEMS_TO_TEST.items()):
+    for i, problem in enumerate(PROBLEMS_TO_TEST):
         print("\n" + "="*50)
         print(f"TASK {i+1}/{len(PROBLEMS_TO_TEST)}: Evaluating '{problem}'")
         print("="*50)
         
-        solution_path = os.path.join(SOLUTIONS_DIR, solution_file)
+        #solution_path = os.path.join(SOLUTIONS_DIR, solution_file)
         
-        if not os.path.exists(solution_path):
-            print(f"Solution file not found at '{solution_path}'")
-            continue
             
-        report = agent.evaluate_solution(problem, solution_path)
+        report = agent.evaluate_solution(problem)
         
         print("\n--- Final Report  ---")
         print(json.dumps(report, indent=2))
