@@ -1,0 +1,6 @@
+Write a program that will compute the frequency that the 13th of each month lands on each day of the week over a given period of N years.
+The time period will be from January 1, 1900 to December 31, 1900+N-1. For reference, January 1, 1900 was on a Monday.
+
+Input: A single integer N (1 <= N <= 400), representing the number of years to consider starting from 1900. January 1, 1900 was on a Monday.
+
+Output: Seven space-separated integers representing the frequency (count) that the 13th falls on Saturday, Sunday, Monday, Tuesday, …, Friday.

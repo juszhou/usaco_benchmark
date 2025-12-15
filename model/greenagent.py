@@ -3,6 +3,7 @@ import subprocess
 import time
 import threading
 import psutil
+from model.whiteagent import WhiteAgent
 
 class GreenAgent:
     """
@@ -23,6 +24,7 @@ class GreenAgent:
         self.benchmark_path = benchmark_path
         self.timeout = timeout_seconds
         print(f"Green Agent initialized. Watching benchmark path") #: '{benchmark_path}'
+        self.white_agent = WhiteAgent(benchmark_path=benchmark_path, timeout=timeout_seconds)
 
     def _monitor_memory(self, process: subprocess.Popen, results_dict: dict):
         """
@@ -44,7 +46,7 @@ class GreenAgent:
         finally:
             results_dict['peak_memory_mb'] = peak_memory_mb
 
-    def evaluate_solution(self, problem_name: str, solution_script_path: str) -> dict:
+    def evaluate_solution(self, problem_name: str, solution_dir: str = "solutions_agent") -> dict:
         """
         Runs the full evaluation for a given problem and solution script.
 
@@ -58,6 +60,10 @@ class GreenAgent:
         problem_dir = os.path.join(self.benchmark_path, 'problems', problem_name)
         if not os.path.isdir(problem_dir):
             return {"error": f"Problem '{problem_name}' not found."}
+        
+        self.white_agent.generate_and_test_solution(problem_name)
+        solution_script_path = os.path.join(solution_dir, f"{problem_name}_generated.py")
+        
         if not os.path.isfile(solution_script_path):
             return {"error": f"Solution script not found: '{solution_script_path}'"}
 
@@ -126,7 +132,7 @@ class GreenAgent:
         
         try:
             process = subprocess.Popen(
-                ['python', script_path],
+                ['python3', script_path],
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
@@ -157,9 +163,17 @@ class GreenAgent:
             mem_thread.join()
             result['status'] = 'Timeout'
             result['runtime_ms'] = self.timeout * 1000
+            result['output'] = ''
         
         except Exception as e:
+            end_time = time.perf_counter()
             result['status'] = 'Execution Error'
             result['error_details'] = str(e)
+            result['runtime_ms'] = (end_time - start_time) * 1000
+            result['output'] = f'Execution Error: {str(e)}'
+
+        # Ensure peak_memory_mb is always set
+        if 'peak_memory_mb' not in result:
+            result['peak_memory_mb'] = 0
 
         return result
