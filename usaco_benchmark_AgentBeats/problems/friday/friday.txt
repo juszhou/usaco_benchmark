@@ -1,0 +1,16 @@
+USACO 1993-1994: Friday the Thirteenth
+
+Given an integer `N`, consider the years 1900 through 1900+N−1 inclusive.  Track
+the day of the week for every 13th of the month in that time span (where Jan 1,
+1900 is a Monday).  Count how many times the 13th falls on Saturday, Sunday,
+Monday, Tuesday, Wednesday, Thursday, and Friday—in that exact order.
+
+Input
+-----
+Single line with integer `N` (1 ≤ N ≤ 400).
+
+Output
+------
+One line containing seven integers separated by spaces, corresponding to the
+counts for Saturday through Friday.
+

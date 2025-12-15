@@ -36,4 +36,3 @@ python main.py launch --problem ride
 python main.py launch --problem gift1
 python main.py launch --problem friday
 ```
-
