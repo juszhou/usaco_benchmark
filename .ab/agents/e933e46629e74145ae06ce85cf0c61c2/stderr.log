@@ -1,0 +1,86 @@
+╭─────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────╮
+│ /Users/amandachen/Library/CloudStorage/GoogleDrive-amanda.youchen@gmail.com/My Drive/UCB/Courses/CS 294/deploy/usaco_refactored/main.py:40 in    │
+│ run                                                                                                                                              │
+│                                                                                                                                                  │
+│   37 │   if settings.role == "green":                                                                                                            │
+│   38 │   │   start_green_agent(host=settings.host, port=settings.agent_port)                                                                     │
+│   39 │   elif settings.role == "white":                                                                                                          │
+│ ❱ 40 │   │   start_white_agent(host=settings.host, port=settings.agent_port)                                                                     │
+│   41 │   else:                                                                                                                                   │
+│   42 │   │   raise ValueError(f"Unknown role: {settings.role}")                                                                                  │
+│   43 │   return                                                                                                                                  │
+│                                                                                                                                                  │
+│ ╭────────────────────────────────── locals ──────────────────────────────────╮                                                                   │
+│ │ settings = UsacoSettings(role='white', host='127.0.0.1', agent_port=49285) │                                                                   │
+│ ╰────────────────────────────────────────────────────────────────────────────╯                                                                   │
+│                                                                                                                                                  │
+│ /Users/amandachen/Library/CloudStorage/GoogleDrive-amanda.youchen@gmail.com/My Drive/UCB/Courses/CS                                              │
+│ 294/deploy/usaco_refactored/src/white_agent/agent.py:109 in start_white_agent                                                                    │
+│                                                                                                                                                  │
+│   106 │   card = prepare_white_agent_card(url)                                                                                                   │
+│   107 │                                                                                                                                          │
+│   108 │   request_handler = DefaultRequestHandler(                                                                                               │
+│ ❱ 109 │   │   agent_executor=UsacoWhiteAgentExecutor(),                                                                                          │
+│   110 │   │   task_store=InMemoryTaskStore(),                                                                                                    │
+│   111 │   )                                                                                                                                      │
+│   112                                                                                                                                            │
+│                                                                                                                                                  │
+│ ╭───────────────────────────────────────────────────────────────── locals ──────────────────────────────────────────────────────────────────╮    │
+│ │ agent_name = 'usaco_white_agent'                                                                                                          │    │
+│ │       card = AgentCard(                                                                                                                   │    │
+│ │              │   additional_interfaces=None,                                                                                              │    │
+│ │              │   capabilities=AgentCapabilities(                                                                                          │    │
+│ │              │   │   extensions=None,                                                                                                     │    │
+│ │              │   │   push_notifications=None,                                                                                             │    │
+│ │              │   │   state_transition_history=None,                                                                                       │    │
+│ │              │   │   streaming=None                                                                                                       │    │
+│ │              │   ),                                                                                                                       │    │
+│ │              │   default_input_modes=['text/plain'],                                                                                      │    │
+│ │              │   default_output_modes=['text/plain'],                                                                                     │    │
+│ │              │   description='Code generation agent for USACO problems using HuggingFace models',                                         │    │
+│ │              │   documentation_url=None,                                                                                                  │    │
+│ │              │   icon_url=None,                                                                                                           │    │
+│ │              │   name='usaco_code_generator',                                                                                             │    │
+│ │              │   preferred_transport='JSONRPC',                                                                                           │    │
+│ │              │   protocol_version='0.3.0',                                                                                                │    │
+│ │              │   provider=None,                                                                                                           │    │
+│ │              │   security=None,                                                                                                           │    │
+│ │              │   security_schemes=None,                                                                                                   │    │
+│ │              │   signatures=None,                                                                                                         │    │
+│ │              │   skills=[                                                                                                                 │    │
+│ │              │   │   AgentSkill(                                                                                                          │    │
+│ │              │   │   │   description='Generates Python solutions for USACO programming problems',                                         │    │
+│ │              │   │   │   examples=[],                                                                                                     │    │
+│ │              │   │   │   id='code_generation',                                                                                            │    │
+│ │              │   │   │   input_modes=None,                                                                                                │    │
+│ │              │   │   │   name='Code Generation',                                                                                          │    │
+│ │              │   │   │   output_modes=None,                                                                                               │    │
+│ │              │   │   │   security=None,                                                                                                   │    │
+│ │              │   │   │   tags=['coding', 'usaco']                                                                                         │    │
+│ │              │   │   )                                                                                                                    │    │
+│ │              │   ],                                                                                                                       │    │
+│ │              │   supports_authenticated_extended_card=None,                                                                               │    │
+│ │              │   url='http://127.0.0.1:49285',                                                                                            │    │
+│ │              │   version='1.0.0'                                                                                                          │    │
+│ │              )                                                                                                                            │    │
+│ │       host = '127.0.0.1'                                                                                                                  │    │
+│ │       port = 49285                                                                                                                        │    │
+│ │        url = 'http://127.0.0.1:49285'                                                                                                     │    │
+│ ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯    │
+│                                                                                                                                                  │
+│ /Users/amandachen/Library/CloudStorage/GoogleDrive-amanda.youchen@gmail.com/My Drive/UCB/Courses/CS                                              │
+│ 294/deploy/usaco_refactored/src/white_agent/agent.py:43 in __init__                                                                              │
+│                                                                                                                                                  │
+│    40 │   def __init__(self):                                                                                                                    │
+│    41 │   │   self.api_key = os.getenv("HUGGINGFACE_API_KEY")                                                                                    │
+│    42 │   │   if not self.api_key:                                                                                                               │
+│ ❱  43 │   │   │   raise ValueError("HUGGINGFACE_API_KEY not found in .env")                                                                      │
+│    44 │   │   self.client = InferenceClient(token=self.api_key)                                                                                  │
+│    45 │   │   self.model_id = "Qwen/Qwen2.5-Coder-32B-Instruct"                                                                                  │
+│    46                                                                                                                                            │
+│                                                                                                                                                  │
+│ ╭─────────────────────────────────── locals ───────────────────────────────────╮                                                                 │
+│ │ self = <src.white_agent.agent.UsacoWhiteAgentExecutor object at 0x10f3ac980> │                                                                 │
+│ ╰──────────────────────────────────────────────────────────────────────────────╯                                                                 │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+ValueError: HUGGINGFACE_API_KEY not found in .env
