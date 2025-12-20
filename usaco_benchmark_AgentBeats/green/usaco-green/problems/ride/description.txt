@@ -1,0 +1,6 @@
+Your ride has begun! You are riding a comet to a distant group of stars. The comet has a name, and the group has a name. You need to determine if the comet is suitable for the group.
+
+The suitability is determined by calculating a number for the comet name and a number for the group name. For each name, compute the product of the letter values (A=1, B=2, ..., Z=26), then take modulo 47. If the two numbers are equal, print "GO", otherwise print "STAY".
+
+Input: Two lines, each containing a string of uppercase letters.
+Output: Either "GO" or "STAY".

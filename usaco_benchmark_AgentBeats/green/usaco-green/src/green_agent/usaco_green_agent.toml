@@ -1,0 +1,17 @@
+name = "usaco_green_agent"
+description = "USACO Problem Evaluation Manager - coordinates problem assessment and code testing"
+version = "1.0.0"
+
+defaultInputModes = ["text/plain"]
+defaultOutputModes = ["text/plain"]
+
+[[skills]]
+id = "usaco_evaluation"
+name = "USACO Evaluation"
+description = "Manages USACO problem evaluation workflow, coordinates with code generation agent"
+tags = ["evaluation", "testing", "usaco"]
+
+[capabilities]
+supports_structured_output = false
+supports_streaming = false
+supports_context_awareness = true

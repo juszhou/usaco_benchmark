@@ -1,0 +1,8 @@
+A group of NP people are exchanging gifts. Each person gives gifts to some others. The amount given is divided equally among the receivers, with the remainder kept by the giver.
+
+Input:
+- First line: NP (1 <= NP <= 10)
+- Next NP lines: names of people
+- Then, for each person: a line with giver name, then a line with NG (number of receivers), then NG lines each with receiver name and amount.
+
+Output: For each person, their name and net gift amount (received - given).
