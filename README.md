@@ -1,3 +1,6 @@
+# USACO BENCHMARK: Depoly on AgentBeats
+Newest Assessment Link: https://v2.agentbeats.org/view/assessment/6f202fa0-f5d1-433c-a953-6521a5ecd1d2
+
 # USACO BENCHMARK: Green Agent
 a local benchmarking tool designed to evaluate Large Language Model (LLM) generated code against algorithmic problems from the USACO archives.
 
